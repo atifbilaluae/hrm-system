@@ -1,0 +1,55 @@
+# ---------------- secrets ----------------
+.env
+.env.*
+!.env.example
+!.env.local.example
+**/appsettings.Production.json
+**/secrets.json
+*.pfx
+*.key
+*.pem
+certificates/
+
+# ---------------- .NET ----------------
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+*.user
+*.suo
+*.userprefs
+.vs/
+TestResults/
+*.coverage
+msbuild.log
+
+# ---------------- Node / Next.js ----------------
+node_modules/
+.next/
+out/
+build/
+.turbo/
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------------- editors ----------------
+.idea/
+*.swp
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# ---------------- logs & temp ----------------
+logs/
+*.log
+tmp/
+temp/
+
+# ---------------- OS ----------------
+.DS_Store
+Thumbs.db
+desktop.ini

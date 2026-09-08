@@ -1,0 +1,26 @@
+# Build output - must never enter the image, it would overwrite the
+# freshly restored output and can leak local absolute paths.
+**/bin/
+**/obj/
+
+# Local developer configuration and secrets
+**/appsettings.Development.json
+**/appsettings.Production.json
+**/Properties/launchSettings.json
+**/*.user
+**/secrets.json
+
+# IDE and VCS
+**/.vs/
+**/.vscode/
+**/.idea/
+**/.git/
+**/.gitignore
+
+# Tests are not needed to run a service
+**/*.Tests/
+
+# Misc
+**/*.md
+**/Dockerfile*
+**/.dockerignore

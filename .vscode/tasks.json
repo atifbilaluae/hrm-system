@@ -1,0 +1,68 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "frontend: install",
+      "type": "shell",
+      "command": "npm install",
+      "options": { "cwd": "${workspaceFolder}/frontend/nextjs-app" },
+      "problemMatcher": []
+    },
+    {
+      "label": "frontend: dev server",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": { "cwd": "${workspaceFolder}/frontend/nextjs-app" },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "frontend: type check",
+      "type": "shell",
+      "command": "npm run typecheck",
+      "options": { "cwd": "${workspaceFolder}/frontend/nextjs-app" },
+      "group": "test",
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "frontend: production build",
+      "type": "shell",
+      "command": "npm run build",
+      "options": { "cwd": "${workspaceFolder}/frontend/nextjs-app" },
+      "group": "build",
+      "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "docker: infra only (redis + rabbitmq)",
+      "type": "shell",
+      "command": "docker compose -f docker-compose.infra.yml up -d",
+      "problemMatcher": []
+    },
+    {
+      "label": "docker: full stack up",
+      "type": "shell",
+      "command": "docker compose up --build",
+      "problemMatcher": []
+    },
+    {
+      "label": "docker: down",
+      "type": "shell",
+      "command": "docker compose down",
+      "problemMatcher": []
+    },
+    {
+      "label": "backend: build solution",
+      "type": "shell",
+      "command": "dotnet build HRM.sln",
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "backend: run tests",
+      "type": "shell",
+      "command": "dotnet test HRM.sln",
+      "group": "test",
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+# Infrastructure only: Redis + RabbitMQ.
+#
+# Use this when the services run from Visual Studio and SQL Server is installed
+# on your machine, but you still want caching and the event bus. It starts two
+# containers and nothing else - no SQL Server, no .NET services, no frontend.
+#
+#   docker compose -f docker-compose.infra.yml up -d      start
+#   docker compose -f docker-compose.infra.yml ps         check
+#   docker compose -f docker-compose.infra.yml down       stop, keep data
+#   docker compose -f docker-compose.infra.yml down -v    stop, wipe data
+#
+# Ports match what appsettings.Development.json expects, so no config changes.
+
+name: hrm-infra
+
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: hrm-redis
+    command: redis-server --save 60 1 --loglevel warning
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: hrm-rabbitmq
+    environment:
+      # Left as guest/guest so it matches appsettings.Development.json out of the box.
+      # guest can only connect from localhost, which is exactly this setup.
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"      # AMQP - the services connect here
+      - "15672:15672"    # management UI - http://localhost:15672
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 15s
+      timeout: 10s
+      retries: 6
+      start_period: 20s
+    restart: unless-stopped
+
+volumes:
+  redis-data:
+  rabbitmq-data:

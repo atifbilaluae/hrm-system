@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+.env*.local
+.git
+.vscode
+npm-debug.log*
+README.md
+Dockerfile
+.dockerignore
