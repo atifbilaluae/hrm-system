@@ -96,7 +96,7 @@ public static class ServiceDefaults
         app.UseMiddleware<CorrelationIdMiddleware>();
         app.UseMiddleware<ExceptionHandlingMiddleware>();
         app.UseSwagger();
-        app.UseSwaggerUI(o => o.SwaggerEndpoint("/swagger/v1/swagger.json", serviceName));
+        app.UseSwaggerUI(o => o.SwaggerEndpoint("v1/swagger.json", serviceName));
         app.UseCors("hrm");
         app.UseAuthentication();
         app.UseAuthorization();
